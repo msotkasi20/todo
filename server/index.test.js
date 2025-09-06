@@ -6,8 +6,8 @@ describe("Testing basic database functionality", () => {
     let token = null
     const testUser = { email: "foo@foo.com", password: "password123"}
 
-    before(() => { //before hookilla ajetaan initializeTestDb kerran ennen muita testejä, varmistaa datan oikeellisuuden testeihin
-        initializeTestDb()
+    before(async () => { //before hookilla ajetaan initializeTestDb kerran ennen muita testejä, varmistaa datan oikeellisuuden testeihin
+        await initializeTestDb()
         token = getToken(testUser) //haetaan token getTokenilla ennen testaamista
     })
 
@@ -24,7 +24,7 @@ describe("Testing basic database functionality", () => {
         const response = await fetch("http://localhost:3001/create", {
         method: "post",
         headers: { "Content-Type":"application/json", 
-        Authorization: token
+        Authorization: token // token kulkee headerissa, mätsätään aiemmin luotuun tokeniin
         },
         body: JSON.stringify({ task: newTask })
         })
@@ -37,8 +37,9 @@ describe("Testing basic database functionality", () => {
     it("should delete task", async () => {
         const response = await fetch("http://localhost:3001/delete/1", {
             method:"delete",
-            Authorization: token
+            headers: { Authorization: token }
         })
+
         const data = await response.json()
         expect(response.status).to.equal(200)
         expect(data).to.include.all.keys("id")
@@ -61,8 +62,8 @@ describe("Testing basic database functionality", () => {
 describe("Testing user management", () => {
 
     const user = { email: "foo2@test.com", password: "password123"}
-    before(() => {
-        insertTestUser(user)
+    before(async () => {
+        await insertTestUser(user)
     })
 
     it("should sign up", async () => {

@@ -37,7 +37,7 @@ const insertTestUser = (user) => {
     })
 }
 
-const getToken = (email) => {
+const getToken = (email) => { // funktio luo tokenin kun email on todettu oikeaksi
     return jwt.sign({ email }, process.env.JWT_SECRET)
 }
 

@@ -13,7 +13,7 @@ router.get('/', (req,res,next) => { //haetaan kaikki tehtävät tietokannasta
     })
 })
 
-router.post('/create', auth,(req,res,next) => { //lisätään uusi tehtävä tietokantaan
+router.post('/create', auth,(req,res,next) => { //lisätään uusi tehtävä tietokantaan, vain kirjautunut käyttäjä saa lisätä tai poistaa tehtäviä
     const { task } = req.body
     
     if (!task) {
@@ -25,11 +25,11 @@ router.post('/create', auth,(req,res,next) => { //lisätään uusi tehtävä tie
             if(err) {
                 return next (err)
             }
-            return res.status(201).json({id: result.rows[0].id, description: task.description})
+            res.status(201).json({ id: result.rows[0].id, description: task.description })
         })
 })
 
-router.delete('/delete/:id', auth,(req,res,next) => { //poistetaan tehtävä tietokannasta id:n perusteella
+router.delete('/delete/:id', auth,(req,res,next) => { //poistetaan tehtävä tietokannasta id:n perusteella kirjautuneena käyttäjänä
     const { id } = req.params
     
     console.log(`Deleting task with id: ${id}`)

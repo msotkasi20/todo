@@ -1,4 +1,4 @@
-﻿drop table if exists task;
+drop table if exists task;
 drop table if exists account;
 CREATE TABLE task ( id SERIAL PRIMARY KEY, description VARCHAR(255) NOT NULL );
 CREATE TABLE account ( id SERIAL PRIMARY KEY, email varchar(50) not null unique, password varchar(255) not null);
