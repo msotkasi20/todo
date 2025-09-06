@@ -1,9 +1,14 @@
-import { pool } from '../helper/db.js'
 import { Router } from 'express'
 import { auth } from '../helper/auth.js'
+import { getTasks, postTask, deleteTask } from '../controllers/TaskController.js'
 
 const router = Router()
 
+router.get("/", getTasks) //router vain välittää GET requestin nyt kontrollerille
+router.post('/create', auth, postTask) //uuden luonti, vaatii tokenin
+router.delete('/delete/:id', auth, deleteTask) //poistaminen, vaatii tokenin
+
+/*
 router.get('/', (req,res,next) => { //haetaan kaikki tehtävät tietokannasta
     pool.query('SELECT * FROM task', (err, result) => {
         if(err) {
@@ -47,6 +52,6 @@ router.delete('/delete/:id', auth,(req,res,next) => { //poistetaan tehtävä tie
             }
             return res.status(200).json({id:id})
         })
-})
+})*/
 
 export default router
