@@ -1,5 +1,6 @@
 import { pool } from '../helper/db.js'
 import { Router } from 'express'
+import { auth } from '../helper/auth.js'
 
 const router = Router()
 
@@ -12,7 +13,7 @@ router.get('/', (req,res,next) => { //haetaan kaikki tehtävät tietokannasta
     })
 })
 
-router.post('/create', (req,res,next) => { //lisätään uusi tehtävä tietokantaan
+router.post('/create', auth,(req,res,next) => { //lisätään uusi tehtävä tietokantaan
     const { task } = req.body
     
     if (!task) {
@@ -28,7 +29,7 @@ router.post('/create', (req,res,next) => { //lisätään uusi tehtävä tietokan
         })
 })
 
-router.delete('/delete/:id', (req,res,next) => { //poistetaan tehtävä tietokannasta id:n perusteella
+router.delete('/delete/:id', auth,(req,res,next) => { //poistetaan tehtävä tietokannasta id:n perusteella
     const { id } = req.params
     
     console.log(`Deleting task with id: ${id}`)

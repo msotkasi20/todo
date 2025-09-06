@@ -12,9 +12,11 @@ app.use(express.urlencoded({extended: false}))
 app.use('/', todoRouter)
 app.use('/user', userRouter)
 
-app.listen(port)
+app.listen(port, () => {
+    console.log(`API listening on http://localhost:${port}`)
+})
 
-app.use((err,req,res,next) => {
+app.use((err,req,res,next) => { //käsittelee kaikki serverivirheet ja palauttaa virhekoodin
     const statusCode = err.status || 500
     res.status(statusCode).json({
         error: {
