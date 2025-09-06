@@ -1,7 +1,8 @@
 import {useState,useEffect} from 'react' //useStatea tarvitaan tilamuuttujiin
 import './App.css'
 import axios from 'axios' //axios-kirjasto yksinkertaistaa HTTP GET kutsua
-import Row  from './components/Row.jsx'
+import Row  from '../components/Row.jsx'
+import { useUser } from '../context/useUser.js'
 
 
 const url = "http://localhost:3001"
@@ -10,6 +11,7 @@ function App() {
 
   const [task, setTask] = useState('') //yksittäinen tehtävä
   const [tasks, setTasks] = useState([]) //taulukko kaikille tehtäville
+  const { user } = useUser() //luetaan käyttäjäobjekti muuttujaan
 
   useEffect( () => { //suoritetaan kerran ladattaessa, jos riippuvuustaulukko on tyhjä
     axios.get(url)
@@ -22,9 +24,10 @@ function App() {
   }, [])
 
   const addTask = () => { //tehtävän lisäys tietokantaan, id luodaan automaattisesti tietokannassa
+    const headers = { headers: { Authorization: user.token }} //lisätään autorisointi käyttäjätokenilla
     const newTask = { description: task } 
 
-    axios.post(url + "/create", { task: newTask })
+    axios.post(url + "/create", { task: newTask }, headers) //lisätään endpoint
     .then(response => {
       setTasks([...tasks,response.data])
       setTask('')
@@ -35,7 +38,10 @@ function App() {
   }
 
   const deleteTask = (deleted) => { //tehtävän poisto tietokannasta id:n perusteella
-    axios.delete(url + "/delete/" + deleted)
+    const headers = { headers: { Authorization: user.token }}
+    console.log(headers)
+
+    axios.delete(url + "/delete/" + deleted, headers)
     .then(response => {
       setTasks(tasks.filter(item => item.id !== deleted))
     })
