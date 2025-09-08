@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken'
 const { sign } = jwt
 const router = Router()
 
+//Käyttäjäreitit
 router.post('/signup', (req,res,next) => {
     const { user } = req.body
 
@@ -54,7 +55,7 @@ router.post('/signin', (req,res,next) => {
                 error.status = 401
                 return next(error)
             }
-            
+
             const token = sign({ user: dbUser.email }, process.env.JWT_SECRET)
             return res.status(200).json({
                 id: dbUser.id,

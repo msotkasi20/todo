@@ -9,12 +9,12 @@ import { Route, RouterProvider } from 'react-router-dom'
 import { createBrowserRouter } from 'react-router-dom'
 import NotFound from './screens/NotFound.jsx'
 
-const router = createBrowserRouter([
+const router = createBrowserRouter([ 
   {
     errorElement: <NotFound />
   },
   {
-    path: "/signin",
+    path: "/signin", ////osoite ja mihin komponenttiin se kohdistuu
     element: <Authentication authenticationMode={AuthenticationMode.SignIn} />
   },
   {
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     element: <Authentication authenticationMode={AuthenticationMode.SignUp} />
   },
   {
-    element: <ProtectedRoute />,
+    element: <ProtectedRoute />, //App komponentin näkevät vain kirjautuneet käyttäjät
     children: [
       {
         path: "/",

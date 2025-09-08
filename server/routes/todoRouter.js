@@ -4,6 +4,7 @@ import { getTasks, postTask, deleteTask } from '../controllers/TaskController.js
 
 const router = Router()
 
+//Tehtäviin liittyvät reitit
 router.get("/", getTasks) //router vain välittää GET requestin nyt kontrollerille
 router.post('/create', auth, postTask) //uuden luonti, vaatii tokenin
 router.delete('/delete/:id', auth, deleteTask) //poistaminen, vaatii tokenin

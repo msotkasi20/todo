@@ -6,18 +6,18 @@ import userRouter from './routes/userRouter.js'
 
 const port = process.env.PORT
 
-const app = express()
+const app = express() //luodaan express sovellus
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
-app.use('/', todoRouter)
+app.use('/', todoRouter) //reittien kiinnitys
 app.use('/user', userRouter)
 
 app.listen(port, () => {
     console.log(`API listening on http://localhost:${port}`)
 })
 
-app.use((err,req,res,next) => { //käsittelee kaikki serverivirheet ja palauttaa virhekoodin
+app.use((err,req,res,next) => { //Middleware, käsittelee kaikki serverivirheet ja palauttaa virhekoodin
     const statusCode = err.status || 500
     res.status(statusCode).json({
         error: {

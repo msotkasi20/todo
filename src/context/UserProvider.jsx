@@ -4,8 +4,8 @@ import { useState } from 'react'
 import { UserContext } from './UserContext'
 import axios from 'axios'
 
-export default function UserProvider({children}) {
-    const userFromStorage = sessionStorage.getItem('user')
+export default function UserProvider({children}) { 
+    const userFromStorage = sessionStorage.getItem('user') //pitää userin tilan, tallentaa sessionstorageen
     const [user, setUser] = useState(userFromStorage ? JSON.parse(userFromStorage):{email: '', password: ''})
 
     const signUp = async () => {

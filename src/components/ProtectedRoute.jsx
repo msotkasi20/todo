@@ -1,4 +1,4 @@
-// tämä komponentti tarkistaa, onko käyttäjä kirjautunut. Jos ei, se ohjaa käyttäjän signin reittiin (App.js, path "/")
+// tämä komponentti tarkistaa, onko käyttäjä kirjautunut. Jos ei, se ohjaa käyttäjän signin reittiin
 import { useUser } from "../context/useUser";
 import { Outlet, Navigate } from 'react-router-dom'
 

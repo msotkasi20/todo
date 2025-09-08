@@ -1,4 +1,4 @@
-//Vain kirjautuneet käyttäjät saavat lisätä ja poistaa tehtäviä. Headerissa kulkee kirjautumistiedot.
+//Autorisointi middleware: vain kirjautuneet käyttäjät saavat lisätä ja poistaa tehtäviä. Headerissa kulkee kirjautumistiedot.
 
 import jwt from 'jsonwebtoken'
 

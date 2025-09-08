@@ -1,6 +1,6 @@
 import {useState,useEffect} from 'react' //useStatea tarvitaan tilamuuttujiin
 import '../App.css'
-import axios from 'axios' //axios-kirjasto yksinkertaistaa HTTP GET kutsua
+import axios from 'axios' //axios-kirjasto yksinkertaistaa HTTP kutsuja
 import Row  from '../components/Row.jsx'
 import { useUser } from '../context/useUser.jsx'
 
@@ -56,7 +56,7 @@ function App() {
     <form>
       <input 
         placeholder='Add new task' 
-        value={task} //alletaan valueksi yksittäisen tehtävän tilamuuttuja
+        value={task} //talletetaan valueksi yksittäisen tehtävän tilamuuttuja
         onChange={e => setTask(e.target.value)} //syöttökentän muutos
         onKeyDown={e => {
           if (e.key === 'Enter') { //jos painetaan enteriä syöttökentässä
@@ -68,8 +68,8 @@ function App() {
     </form>
     <ul>
       {
-        tasks.map(item => ( //mapataan taulukko läpi, kutsutaan importattua Row-funktioa, jossa nappi ja sen toiminto
-          <Row 
+        tasks.map(item => ( //mapataan taulukko läpi, 
+          <Row //kutsutaan importattua Row-funktioa, jossa nappi ja sen toiminto
             item={item} //yksittäinen tehtävä propsina, väliteään Row-funktiolle
             key={item.id} //Reactin vaatima avain (key) Row-komponentille, id on tehtävän id
             deleteTask={deleteTask} /> //funktion propsina, välitetään Row-funktiolle

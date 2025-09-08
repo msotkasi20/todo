@@ -1,4 +1,4 @@
-// Controller käsittelee HTTP-pyynnöt, datan validoinnin ja virheenhallinnan, eli ojelman logiikan
+// Controller: sovelluslogiikka: käsittelee HTTP-pyynnöt, datan validoinnin ja virheenhallinnan, eli ojelman logiikan
 import { ApiError } from "../helper/ApiError.js"
 import { selectAllTasks, insertTask, deleteTask as deleteTaskModel } from "../models/Task.js"
 
@@ -7,7 +7,7 @@ const getTasks = async (req,res,next) => {
         const result = await selectAllTasks() //ja kutsuu sitä palauttaakseen datan statuksen laittamiseen
         return res.status(200).json(result.rows || []) //ja arvon palauttamiseen JSONINA
     } catch (error) {
-        return next(error) //jos error, forwardoidaan middlewarelle index.js:ssässä
+        return next(error) //jos error, forwardoidaan middlewarelle index.js:ssään virheenkäsittelyyn
     }
 }
 
